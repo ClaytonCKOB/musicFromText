@@ -12,6 +12,7 @@ public class SongCreation {
         // Parameters for the song
         int sampleRate = 44100;
         int numChannels = 1;
+        long frameLengths = 0;
 
         // Create a list to store the audio streams
         List<AudioInputStream> audioStreams = new ArrayList<>();
@@ -24,11 +25,15 @@ public class SongCreation {
         AudioInputStream note2Stream = generateNoteStream(523.25, 1, sampleRate, numChannels);
         audioStreams.add(note2Stream);
 
+        for(int i = 0; i < audioStreams.size(); i++){
+            frameLengths += audioStreams.get(i).getFrameLength();
+        }
+
         // Combine the audio streams
         Enumeration<AudioInputStream> audioStreamEnumeration = Collections.enumeration(audioStreams);
         AudioInputStream combinedStream = new AudioInputStream(
-                new SequenceInputStream(audioStreamEnumeration), note1Stream.getFormat(),
-                note1Stream.getFrameLength() + note2Stream.getFrameLength());
+                new SequenceInputStream(audioStreamEnumeration), audioStreams.get(0).getFormat(),
+                frameLengths);
 
         try {
             // Write the combined audio stream to a file
@@ -56,5 +61,21 @@ public class SongCreation {
 
         // Create an AudioInputStream from the audio data
         return new AudioInputStream(new ByteArrayInputStream(audioData), format, audioData.length / format.getFrameSize());
+    }
+
+    public void textMapping(String text){
+        char beforeLetter = '';
+        Map<String, Long> map = new HashMap<String, Long>();
+        map.put("A", 444);
+        map.put("B", 498,4);
+        map.put("C", 528);
+        map.put("D", 296,2); 
+        map.put("E", 332,6); 
+        map.put("F", 352,4); 
+        map.put("G", 395,5); 
+        
+        for(int i = 0; i < text.length; i++){
+            text.charAt(i);
+        }
     }
 }
