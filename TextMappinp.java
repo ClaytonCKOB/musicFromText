@@ -5,10 +5,42 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TextMapping {
-    public static List<HashMap<String, Integer>> getActions(String text){
 
-        List<HashMap<String, Integer>> actions = new ArrayList<>();
+    private static boolean isOctave(String text, Integer indice)
+    {
+        return Character.toString(text.charAt(i)).equals('R') && i++ < text.length();
+    }
 
+    private static boolean isNote(String text)
+    {
+        Pattern notes_char = Pattern.compile("[A-Ga-g]"); 
+
+        return notes_char.matcher(text).find();
+    }
+
+    private static boolean isNoteOrPhone(String text)
+    {
+        Pattern vogals = Pattern.compile("[OIUoiu]");
+
+        return vogals.matcher(text).find();
+    }
+
+    private static boolean isInstrument(String text)
+    {
+        return character.equals('\n');
+    }
+
+    private static List<HashMap<String, Integer>> setAction(List<HashMap<String, Integer>> actions, String type, Integer value)
+    {
+        actions.add(new HashMap<String, Object>() {{
+                        put(type, value);
+                    }});
+
+        return actions;
+    }
+
+    private static Integer getNote(String text)
+    {
         Map<String, Integer> notes = new HashMap<String, Integer>(){{
             put("A", 69);
             put("B", 71);
@@ -19,74 +51,102 @@ public class TextMapping {
             put("G", 68); 
         }};
 
-        Map<String, Integer> instruments = new HashMap<String, Integer>(){{
-            put("O", 7);
-            put("I", 7);
-            put("U", 7);
-            put("o", 7); 
-            put("i", 7); 
-            put("u", 7); 
-            
-            put("!", 114); 
-            put(";", 76); 
-            put(",", 20); 
-            put("\\n", 15); 
-        }};
+        return notes.get(Character.toUpperCase(character))
+    }
 
+    private static Integer getOctave(String text, Integer indice)
+    {
+        String next_char = Character.toString(text.charAt(indice++));
 
-        Pattern AtoG = Pattern.compile("[A-G]"); 
-        Pattern atog = Pattern.compile("[a-g]"); 
-        Pattern instrumentsrx = Pattern.compile("[OIUoiu!;,\\n]");
-        Pattern consoantes = Pattern.compile("[H-Z&&h-z]");
+        if(next_char.equals('+')){
+            return 1;
+        }else if(next_char.equals('-')){
+            return 0;
+        }
+    }
 
-        for(int i = 0; i < text.length(); i++){
+    private static boolean isDoubleVolume(String text)
+    {
+        return text.equals('+')    
+    }
+    private static boolean isDefaultVolume(String text)
+    {
+        return text.equals('-')    
+    }
+    private static boolean isRandomNote(String text)
+    {
+        return text.equals('?')    
+    }
+    private static boolean isRandomBpm(String text)
+    {
+        return text.equals(';')    
+    }
+
+    public static List<HashMap<String, Integer>> getActions(String text)
+    {
+
+        List<HashMap<String, Integer>> actions = new ArrayList<>();
+
+        Pattern AtoG = Pattern.compile("[A-Ga-g]"); 
+
+        int i = 0
+        while(i < text.length()){
             String character = Character.toString(text.charAt(i));
+            String beforeLetter = '';
 
-            // Notas definidas
-            if(AtoG.matcher(character).find()){
-                actions.add(new HashMap<String, Object>() {{
-                    put("frequency", notes.get(character));
-                }});
 
-            // Sem definicao de nota e caracter anterior e uma nota
-            }else if(
-                (atog.matcher(character).find() && AtoG.matcher(beforeLetter).find()) ||
-                (consoantes.matcher(character).find() && AtoG.matcher(beforeLetter).find())
-            ){
-                actions.add(new HashMap<String, Object>() {{
-                    put("frequency", notes.get(beforeLetter));
-                }});
+            if(isHigherBPM(text, i)){
+                actions = setAction(actions, "bpm", 80);
+                i = i + 3;
 
-            // Sem definicao de nota e anterior nao e uma nota ou qualquer outra consoante
-            }else if(
-                atog.matcher(character).find() || consoantes.matcher(character).find()
-            ){
-                actions.add(new HashMap<String, Object>() {{
-                    put("frequency", 0);
-                }});
 
-            // Alteracao de intrumentos utilizados
-            }else if(instrumentsrx.matcher(character).find()){
-                actions.add(new HashMap<String, Object>() {{
-                    put("instrument", instruments.get(character));
-                }});
+            }else if(isNote(character)){
+                actions = setAction(actions, "frequency", getNote(character));
 
-            // Nenhuma das situacoes anteriores
-            }else{
-                if(AtoG.matcher(beforeLetter).find()){
-                    actions.add(new HashMap<String, Object>() {{
-                        put("frequency", notes.get(beforeLetter));
-                    }});
+
+            }else if(isNoteOrPhone(character)){
+                if(isNote(beforeLetter)){
+                    actions = setAction(actions, "frequency", getNote(beforeLetter));
+
                 }else{
-                    actions.add(new HashMap<String, Object>() {{
-                        put("frequency", 0);
-                    }});
+                    actions = setAction(actions, "frequency", 125);
+
                 }
+
+
+            }else if(isOctave()){
+                actions = setAction(actions, "octave", getOctave());
+                i++;
+
+
+            }else if(isInstrument(character)){
+                actions = setAction(actions, "instrument", instruments.get(character));
+
+
+            }else if(isDoubleVolume(character)){
+                actions = setAction(actions, "volume", 1);
+            
+            
+            }else if(isDefaultVolume(character)){
+                actions = setAction(actions, "volume", 0);
+            
+            
+            }else if(isRandomNote(character)){
+                actions = setAction(actions, "frequency", getRandomNote());
+            
+            
+            }else if(isRandomBpm(character)){
+                actions = setAction(actions, "bpm", getRandomBpm());
+
+
+            }else{
+                actions = actions.add(actions.get(-1));
             }    
 
             beforeLetter = character;
+            i++;
         }
 
-        return hashMapList;
+        return actions;
     }
 }

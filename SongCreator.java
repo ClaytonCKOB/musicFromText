@@ -6,16 +6,21 @@ import java.util.regex.Pattern;
 
 public class SongCreator {
 
-    private Synthesizer synthesizer = MidiSystem.getSynthesizer();
-    private MidiChannel channel;
+    private static Synthesizer synthesizer = null;
+    private static MidiChannel channel;
 
-    private static void open(){
-        synthesizer.open();
-        channel = synthesizer.getChannels()[0];
+    private static void open() throws MidiUnavailableException {
+        if (synthesizer == null) {
+            synthesizer = MidiSystem.getSynthesizer();
+            synthesizer.open();
+            channel = synthesizer.getChannels()[0];
+        }
     }
 
-    private static void close(){
-        synthesizer.close();
+    private static void close() {
+        if (synthesizer != null && synthesizer.isOpen()) {
+            synthesizer.close();
+        }
     }
 
     public static void playFromList(List<HashMap<String, Integer>> actions){
@@ -23,15 +28,16 @@ public class SongCreator {
         open();
         
         for (HashMap<String, Object> action : actions) {
-            String name = (String) hashMap.get("name");
-            int age = (int) hashMap.get("age");
-            System.out.println("Name: " + name + ", Age: " + age);
-
+            // Tocar uma nota
             if(action.containsKey("frequency")){
                 playNote(action.get("frequency"));
+
+            // Troca de instrumento
             }else if(action.containsKey("instrument")){
                 setInstrument(action.get("instrument"));
             }
+
+            
         }
 
         close();

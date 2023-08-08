@@ -34,7 +34,7 @@ public class Gui extends JFrame{
         window.createWindow();
     } 
 
-     public void selectFile() {
+    public void selectFile() {
         JFileChooser chooser = new JFileChooser();
         // optionally set chooser options ...
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
