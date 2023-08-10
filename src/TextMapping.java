@@ -1,3 +1,5 @@
+package src;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class TextMapping {
 
     private static Integer getOctave(String text, Integer indice)
     {
-        Character next_char = text.charAt(indice++);
+        Character next_char = text.charAt(indice + 1);
 
         if(next_char == '+'){
             return 1;
@@ -113,6 +115,11 @@ public class TextMapping {
         );
     }
 
+    private static boolean isSilent(String text)
+    {
+        return text.equals(" ");
+    }
+
     public static List<HashMap<String, Integer>> getActions(String text)
     {
 
@@ -168,6 +175,9 @@ public class TextMapping {
                 actions = setAction(actions, "bpm", getRandomBpm());
 
 
+            }else if(isSilent(character)){
+                actions = setAction(actions, "frequency", 0);
+
             }else{
                 actions.add(new HashMap<>(actions.get(actions.size() - 1)));
             }    
@@ -180,7 +190,7 @@ public class TextMapping {
     }
 
     public static void main(String[] args) {
-        List<HashMap<String, Integer>> actions = getActions("BPM+");
+        List<HashMap<String, Integer>> actions = getActions("R+R-");
 
         for (HashMap<String, Integer> action : actions) {
             System.out.println("Action:");
