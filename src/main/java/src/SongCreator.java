@@ -47,10 +47,10 @@ public class SongCreator {
 
     private static void setBpm(int value) {
         if (channel != null) {
-            int microseconds_per_minute = 60_000_000; 
-    
+            int microseconds_per_minute = 60_000_000;
+
             int microseconds_per_beat = microseconds_per_minute / value;
-    
+
             channel.controlChange(0x51, (microseconds_per_beat >> 16) & 0xFF);
             channel.controlChange(0x52, (microseconds_per_beat >> 8) & 0xFF);
             channel.controlChange(0x53, microseconds_per_beat & 0xFF);
@@ -58,15 +58,15 @@ public class SongCreator {
     }
 
     public static void playFromList(List<HashMap<String, Integer>> actions){
-        
+
         open();
-        
+
         for (HashMap<String, Integer> action : actions) {
             // Tocar uma nota
             if(action.containsKey("frequency")){
                 playNote(action.get("frequency"));
 
-            // Troca de instrumento
+                // Troca de instrumento
             } else if(action.containsKey("instrument")){
                 setInstrument(action.get("instrument"));
 
@@ -81,7 +81,7 @@ public class SongCreator {
                 setBpm(action.get("bpm"));
             }
 
-            
+
         }
 
         close();

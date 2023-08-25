@@ -1,46 +1,43 @@
 package src;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.*;
 
 public class Gui extends JFrame{
     private BorderLayout layout;
     
-    private void createWindow() {
+    public void createWindow() {
         this.setTitle("Music from text");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         layout = new BorderLayout(25,25);	//ESPAÇOS DE 25 PIXELS
         this.setLayout(layout);
-		
+
         JButton openFileButton = new JButton("Open file");
         openFileButton.setPreferredSize(new Dimension(130, 40));
-        
+
         JButton startButton = new JButton("Convert to music");
         startButton.setPreferredSize(new Dimension (130,40));
-        
-       
+
+
         openFileButton.addActionListener(e -> {
             selectFile();
         });
-        
+
         JTextField userText = new JTextField(30);
-        
-        
+
+
         JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.add(openFileButton);
         buttonPanel.add(startButton);
-        
+
         BufferedImage originalImage = null;
         try {
-            File imageFile = new File("img/img.png"); 
+            File imageFile = new File("img/img.png");
             originalImage = ImageIO.read(imageFile);
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,7 +51,7 @@ public class Gui extends JFrame{
         ImageIcon imageIcon = new ImageIcon(resizedImage);
         JLabel imageLabel = new JLabel(imageIcon);
         add(imageLabel, BorderLayout.NORTH);
-        
+
         this.add(userText, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -63,11 +60,6 @@ public class Gui extends JFrame{
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        Gui window = new Gui();
-        window.createWindow();
-    } 
-
     public void selectFile() {
     	JFileChooser chooser = new JFileChooser();
         // optionally set chooser options ...
@@ -75,7 +67,7 @@ public class Gui extends JFrame{
             File f = chooser.getSelectedFile();
             InputReader reader = new InputReader(f);
             System.out.println(reader.getNextChar());
-            
+
             // read  and/or display the file somehow. ....
         } else {
             // user changed their mind
