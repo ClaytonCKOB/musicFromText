@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dacddfd-f9cc-4345-8c0e-13b208090a93" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Gui.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InputReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/SongCreator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TextMapping.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/classes/Action.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicFromText.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/Gui.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/InputReader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/SongCreator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/TextMapping.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/src/main.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,28 +46,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "C:/Users/gabip/Projetos/musicFromText/src/main/java/src/SongCreator.java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "two.files.diff.last.used.file": "C:/Users/gabip/Projetos/musicFromText/src/main/java/src/SongCreator.java",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/gabip/Projetos/musicFromText/src/main/java/src/SongCreator.java&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;C:/Users/gabip/Projetos/musicFromText/src/main/java/src/SongCreator.java&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\gabip\Projetos\musicFromText\src\main\java\resources" />
       <recent name="C:\Users\gabip\Projetos\musicFromText\src\main\java\src" />
       <recent name="C:\Users\gabip\Projetos\musicFromText\src\main\java" />
       <recent name="C:\Users\gabip\Projetos\musicFromText\src\main" />
@@ -76,13 +80,39 @@
       <recent name="classes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.main">
-    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="src.main" />
+  <component name="RunManager" selected="Application.SongCreator">
+    <configuration name="SongCreator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="util.SongCreator" />
       <module name="musicFromText" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="src.*" />
+          <option name="PATTERN" value="util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TextMapping" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="util.TextMapping" />
+      <module name="musicFromText" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="application.main" />
+      <module name="musicFromText" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -121,45 +151,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TrianguloTest.DeveRetornarTrueAsPermutacoesDeUmTrianguloIsoceles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Testa_triangulos" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="classes.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="classes" />
-      <option name="MAIN_CLASS_NAME" value="classes.TrianguloTest" />
-      <option name="METHOD_NAME" value="DeveRetornarTrueAsPermutacoesDeUmTrianguloIsoceles" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TrianguloTest.DeveRetornarTrueParaUmTrianguloIsocelesValido" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Testa_triangulos" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="classes.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="classes" />
-      <option name="MAIN_CLASS_NAME" value="classes.TrianguloTest" />
-      <option name="METHOD_NAME" value="DeveRetornarTrueParaUmTrianguloIsocelesValido" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SongCreator" />
+        <item itemvalue="Application.TextMapping" />
         <item itemvalue="Application.main" />
         <item itemvalue="JUnit.TrianguloTest" />
         <item itemvalue="JUnit.TrianguloTest.DeveRetornarFalsoQuandoASomaDoLadoAeBEhIgualAoLadoC" />
-        <item itemvalue="JUnit.TrianguloTest.DeveRetornarTrueAsPermutacoesDeUmTrianguloIsoceles" />
-        <item itemvalue="JUnit.TrianguloTest.DeveRetornarTrueParaUmTrianguloIsocelesValido" />
       </list>
     </recent_temporary>
   </component>
@@ -177,7 +175,8 @@
       <workItem from="1692135241863" duration="2003000" />
       <workItem from="1692217324905" duration="4550000" />
       <workItem from="1693001951967" duration="23000" />
-      <workItem from="1693001989281" duration="729000" />
+      <workItem from="1693001989281" duration="3172000" />
+      <workItem from="1693048964319" duration="13615000" />
     </task>
     <servers />
   </component>
