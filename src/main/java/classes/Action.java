@@ -9,6 +9,11 @@ public class Action {
         this.value = value;
     }
 
+    public Action(String name) {
+        this.name = name;
+        this.value = 0;
+    }
+
     public String getName() {
         return this.name;
     }

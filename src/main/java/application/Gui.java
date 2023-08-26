@@ -1,5 +1,6 @@
 package application;
 import util.InputReader;
+import util.SongPlayer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,11 +13,10 @@ import java.util.Objects;
 
 public class Gui extends JFrame{
     private BorderLayout layout;
-    private final String directoryPath = System.getProperty("user.dir");
     private String trebleClefImagePath = "/trebleClef.png";
     private int targetFileHeight = 175;
 
-    private int guiWidth = 400;
+    private int guiWidth = 600;
     private int guiHeight = 600;
 
     public void createWindow() {
@@ -32,17 +32,29 @@ public class Gui extends JFrame{
         JButton startButton = new JButton("Convert to music");
         startButton.setPreferredSize(new Dimension (130,40));
 
+        JButton exportMIDIButton = new JButton("Export to MIDI");
+        openFileButton.setPreferredSize(new Dimension(130, 40));
+
+
+        JTextArea userText = new JTextArea(20,30);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout());
 
         openFileButton.addActionListener(e -> {
             selectFile();
         });
 
-        JTextField userText = new JTextField(30);
-
-        JPanel buttonPanel = new JPanel(new FlowLayout());
+        startButton.addActionListener(e->{
+            try{
+                SongPlayer.play(userText.getText());
+            }catch (Exception error){
+                error.printStackTrace();
+            }
+        });
 
         buttonPanel.add(openFileButton);
         buttonPanel.add(startButton);
+        buttonPanel.add(exportMIDIButton);
 
 
         BufferedImage trebleClefImage = loadImage(trebleClefImagePath);
@@ -55,12 +67,16 @@ public class Gui extends JFrame{
         JLabel imageLabel = new JLabel(imageIcon);
         add(imageLabel, BorderLayout.NORTH);
 
+
+
         this.add(userText, BorderLayout.CENTER);
         this.add(buttonPanel, BorderLayout.SOUTH);
 
         this.setLocationRelativeTo(null);
         this.setSize(guiWidth, guiHeight);
         this.setVisible(true);
+
+
     }
 
     public void selectFile() {

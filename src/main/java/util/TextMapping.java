@@ -48,7 +48,7 @@ public class TextMapping {
 
     private static Integer getRandomInstrument()
     {
-        return random.nextInt(127) + 1;
+        return random.nextInt(15) + 1;
     }
 
     private static Integer getRandomBpm()
@@ -118,66 +118,77 @@ public class TextMapping {
         return character == ' ';
     }
 
-    public static List<Action> getActions(String text)
-    {
+    private static void repeatLastAction(List<Action> actionList){
+        actionList.add(actionList.get(actionList.size() - 1));
+    }
+
+    public static List<Action> getActions(String text) {
 
         List<Action> actions = new ArrayList<>();
 
         int currentIndex = 0;
         char previousCharacter = '\0';
-        while(currentIndex < text.length()){
-            char currentChar = text.charAt(currentIndex);
+        while (currentIndex < text.length()) {
+            char currentChar = Character.toUpperCase(text.charAt(currentIndex));
 
-            if(isHigherBpm(text, currentIndex)){
-                actions.add(new Action("increaseBPM",80));
+            if (isHigherBpm(text, currentIndex)) {
+                actions.add(new Action("increaseBPM", 80));
                 currentIndex = currentIndex + 3;
 
-            }else if(isNote(currentChar)){
-                actions.add(new Action("playNote",getNote(currentChar)));
+            } else if (isNote(currentChar)) {
+                actions.add(new Action("playNote", getNote(currentChar)));
 
-            }else if(isVowel(currentChar)){
-                if(isNote(previousCharacter)){
+            } else if (isVowel(currentChar)) {
+                if (isNote(previousCharacter)) {
                     actions.add(new Action("playNote", getNote(previousCharacter)));
 
-                }else{
-                    actions.add(new Action("playNote", 125));
+                } else {
+                    actions.add(new Action("telephone"));
 
                 }
 
 
-            }else if(isOctave(text, currentIndex)){
-                actions.add(new Action("octave", getOctave(text,currentIndex)));
-                currentIndex++;
+            } else if (isOctave(text, currentIndex)) {
+                Integer value = getOctave(text, currentIndex);
+                if(value == null)
+                    repeatLastAction(actions);
+                else {
+                    actions.add(new Action("octave", value));
+                    currentIndex++;
+                }
 
 
-            }else if(isInstrument(currentChar)){
+
+            } else if (isInstrument(currentChar)) {
                 actions.add(new Action("instrument", getRandomInstrument()));
 
 
-            }else if(isDoubleVolume(currentChar)){
-                actions.add(new Action( "volume", 1));
+            } else if (isDoubleVolume(currentChar)) {
+                actions.add(new Action("volume", 1));
 
 
-            }else if(isDefaultVolume(currentChar)){
+            } else if (isDefaultVolume(currentChar)) {
                 actions.add(new Action("volume", 0));
 
 
-            }else if(isRandomNote(currentChar)){
+            } else if (isRandomNote(currentChar)) {
                 actions.add(new Action("playNote", getRandomNote()));
 
 
-            }else if(isRandomBpm(currentChar)){
+            } else if (isRandomBpm(currentChar)) {
                 actions.add(new Action("setBPM", getRandomBpm()));
 
 
-            }else if(isRest(currentChar)){
-                actions.add(new Action( "rest", 0));
+            } else if (isRest(currentChar)) {
+                actions.add(new Action("rest", 0));
 
-            }else{
-                if(actions.size() > 0)
-                    actions.add(actions.get(actions.size()-1));
-                else
-                    throw new IllegalArgumentException("Caractere "+ currentIndex+1 + " é inválido!");
+            } else {
+                if (actions.size() > 0)
+                    repeatLastAction(actions);
+                else {
+                    throw new IllegalArgumentException("Caractere " + currentIndex + 1 + " é inválido!");
+                }
+
             }
 
             previousCharacter = currentChar;
