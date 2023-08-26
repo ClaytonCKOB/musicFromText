@@ -2,3 +2,4 @@
 *.wav
 lib/*
 .vscode/*
+/target/
