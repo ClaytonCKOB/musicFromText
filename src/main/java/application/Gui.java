@@ -10,11 +10,13 @@ import javax.swing.*;
 import java.io.IOException;
 import java.io.*;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Gui extends JFrame{
     private BorderLayout layout;
     private String trebleClefImagePath = "/trebleClef.png";
     private int targetFileHeight = 175;
+    private JTextArea userText;
 
     private int guiWidth = 600;
     private int guiHeight = 600;
@@ -36,7 +38,7 @@ public class Gui extends JFrame{
         openFileButton.setPreferredSize(new Dimension(130, 40));
 
 
-        JTextArea userText = new JTextArea(20,30);
+        userText = new JTextArea(20,30);
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
 
@@ -84,8 +86,8 @@ public class Gui extends JFrame{
         // optionally set chooser options ...
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File f = chooser.getSelectedFile();
-            InputReader reader = new InputReader(f);
-            System.out.println(reader.getNextChar());
+            userText.setText(fileToString(f));
+           
 
             // read  and/or display the file somehow. ....
         } else {
@@ -102,6 +104,28 @@ public class Gui extends JFrame{
         }
         return image;
     }
-
+    
+    private String fileToString(File f)
+    {	
+    	String contentAsString;
+    	try {               	         
+            Scanner scanner = new Scanner(f);
+            StringBuilder fileContent = new StringBuilder();
+            
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                fileContent.append(line).append("\n");
+            }
+            
+            scanner.close();     
+            contentAsString = fileContent.toString();
+            
+            return contentAsString;
+        } catch (FileNotFoundException e) 
+    	{
+            e.printStackTrace();
+        }
+    	return null;
+    }
 
 }
