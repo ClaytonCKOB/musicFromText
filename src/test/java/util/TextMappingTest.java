@@ -1,110 +1,108 @@
 package util;
 
 import classes.Action;
-import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 class TextMappingTest {
 
     @Test
-    public void testBpmGetActions() {
+    void testBpmGetActions() {
         String inputText = "BPM+";
-        List<Action> result = TextMapping.getActions(inputText);
+        Action result = TextMapping.getActions(inputText).get(0);
 
-        assertEquals("bpm", new ArrayList<>(result.get(0).keySet()).get(0));
-        assertEquals(Integer.valueOf(80), result.get(0).get(new ArrayList<>(result.get(0).keySet()).get(0)));
+        assertEquals("increaseBPM", result.getName());
+        assertEquals(80, result.getValue());
     }
 
     @Test
-    public void testNotesGetActions() {
+    void testNotesGetActions() {
         String inputText = "ABCDEFG";
         List<Action> result = TextMapping.getActions(inputText);
 
-        assertEquals("frequency", new ArrayList<>(result.get(0).keySet()).get(0));
-        assertEquals(Integer.valueOf(69), result.get(0).get(new ArrayList<>(result.get(0).keySet()).get(0)));
+        assertEquals("playNote", result.get(0).getName());
+        assertEquals(9, result.get(0).getValue());
 
-        assertEquals("frequency", new ArrayList<>(result.get(1).keySet()).get(0));
-        assertEquals(Integer.valueOf(71), result.get(1).get(new ArrayList<>(result.get(1).keySet()).get(0)));
+        assertEquals("playNote", result.get(1).getName());
+        assertEquals(11,  result.get(1).getValue());
 
-        assertEquals("frequency", new ArrayList<>(result.get(2).keySet()).get(0));
-        assertEquals(Integer.valueOf(60), result.get(2).get(new ArrayList<>(result.get(2).keySet()).get(0)));
+        assertEquals("playNote", result.get(2).getName());
+        assertEquals(0,  result.get(2).getValue());
 
-        assertEquals("frequency", new ArrayList<>(result.get(3).keySet()).get(0));
-        assertEquals(Integer.valueOf(62), result.get(3).get(new ArrayList<>(result.get(3).keySet()).get(0)));
+        assertEquals("playNote", result.get(3).getName());
+        assertEquals(2,  result.get(3).getValue());
 
-        assertEquals("frequency", new ArrayList<>(result.get(4).keySet()).get(0));
-        assertEquals(Integer.valueOf(64), result.get(4).get(new ArrayList<>(result.get(4).keySet()).get(0)));
+        assertEquals("playNote", result.get(0).getName());
+        assertEquals(4, result.get(4).getValue());
 
-        assertEquals("frequency", new ArrayList<>(result.get(5).keySet()).get(0));
-        assertEquals(Integer.valueOf(66), result.get(5).get(new ArrayList<>(result.get(5).keySet()).get(0)));
+        assertEquals("playNote", result.get(1).getName());
+        assertEquals(5,  result.get(5).getValue());
 
-        assertEquals("frequency", new ArrayList<>(result.get(6).keySet()).get(0));
-        assertEquals(Integer.valueOf(68), result.get(6).get(new ArrayList<>(result.get(6).keySet()).get(0)));
-
+        assertEquals("playNote", result.get(2).getName());
+        assertEquals(7,  result.get(6).getValue());
     }
 
     @Test
-    public void testSilentGetActions() {
+    void testSilentGetActions() {
         String inputText = " ";
-        List<Action> result = TextMapping.getActions(inputText);
+        String expected = "rest";
+        Action result = TextMapping.getActions(inputText).get(0);
 
-        assertEquals("frequency", new ArrayList<>(result.get(0).keySet()).get(0));
-        assertEquals(Integer.valueOf(0), result.get(0).get(new ArrayList<>(result.get(0).keySet()).get(0)));
+        assertEquals(expected, result.getName());
     }
 
     @Test
-    public void testVolumeGetActions() {
+    void testVolumeGetActions() {
         String inputText = "+-";
         List<Action> result = TextMapping.getActions(inputText);
 
-        assertEquals("volume", new ArrayList<>(result.get(0).keySet()).get(0));
-        assertEquals(Integer.valueOf(1), result.get(0).get(new ArrayList<>(result.get(0).keySet()).get(0)));
+        assertEquals("volume", result.get(0).getName());
+        assertEquals(1, result.get(0).getValue());
 
-        assertEquals("volume", new ArrayList<>(result.get(1).keySet()).get(0));
-        assertEquals(Integer.valueOf(0), result.get(1).get(new ArrayList<>(result.get(1).keySet()).get(0)));
+        assertEquals("volume", result.get(1).getName());
+        assertEquals(0,  result.get(1).getValue());
     }
 
     @Test
-    public void testVogalsGetActions() {
+    void testVogalsGetActions() {
         String inputText = "AO+u";
-        List<HashMap<String, Integer>> result = TextMapping.getActions(inputText);
-
-        assertEquals("frequency", new ArrayList<>(result.get(0).keySet()).get(0));
-        assertEquals(Integer.valueOf(69), result.get(0).get(new ArrayList<>(result.get(0).keySet()).get(0)));
-
-        assertEquals("frequency", new ArrayList<>(result.get(1).keySet()).get(0));
-        assertEquals(Integer.valueOf(125), result.get(1).get(new ArrayList<>(result.get(1).keySet()).get(0)));
-
-        assertEquals("volume", new ArrayList<>(result.get(2).keySet()).get(0));
-        assertEquals(Integer.valueOf(1), result.get(2).get(new ArrayList<>(result.get(2).keySet()).get(0)));
-
-        assertEquals("frequency", new ArrayList<>(result.get(3).keySet()).get(0));
-        assertEquals(Integer.valueOf(125), result.get(3).get(new ArrayList<>(result.get(3).keySet()).get(0)));
-    }
-
-    @Test
-    public void testOctaveGetActions() {
-        String inputText = "R+R-";
-
-        String firstExpected = "playNote";
-        String secondExpected = "playNote";
         List<Action> result = TextMapping.getActions(inputText);
 
-        assertEquals("octave", new ArrayList<>(result.get(0).keySet()).get(0));
-        assertEquals(Integer.valueOf(1), result.get(0).get(new ArrayList<>(result.get(0).keySet()).get(0)));
+        assertEquals("playNote", result.get(0).getName());
+        assertEquals(9, result.get(0).getValue());
 
-        assertEquals("octave", new ArrayList<>(result.get(1).keySet()).get(0));
-        assertEquals(Integer.valueOf(0), result.get(1).get(new ArrayList<>(result.get(1).keySet()).get(0)));
+        assertEquals("playNote", result.get(1).getName());
+        assertEquals(9,  result.get(1).getValue());
+
+        assertEquals("volume", result.get(2).getName());
+        assertEquals(1,  result.get(2).getValue());
+
+        assertEquals("telephone", result.get(3).getName());
     }
 
     @Test
-    public void testRandomNoteGetActions() {
+    void testOctaveGetActions() {
+        String inputText = "R+R-";
+
+        String firstNameExpected = "octave";
+        String secondNameExpected = "octave";
+        int firstValueExpected = 1;
+        int secondValueExpected = -1;
+        List<Action> result = TextMapping.getActions(inputText);
+
+        assertEquals(firstNameExpected, result.get(0).getName());
+        assertEquals(firstValueExpected, result.get(0).getValue());
+
+        assertEquals(secondNameExpected, result.get(1).getName());
+        assertEquals(secondValueExpected, result.get(1).getValue());
+    }
+
+    @Test
+    void testRandomNoteGetActions() {
         String inputText = "?";
         String expected = "playNote";
         Action result = TextMapping.getActions(inputText).get(0);
@@ -113,7 +111,7 @@ class TextMappingTest {
     }
 
     @Test
-    public void testInstrumentGetActions() {
+    void testInstrumentGetActions() {
         String inputText = "\n";
         String expected = "instrument";
         Action result = TextMapping.getActions(inputText).get(0);
@@ -123,7 +121,7 @@ class TextMappingTest {
     }
 
     @Test
-    public void testRandomBpmGetActions() {
+    void testRandomBpmGetActions() {
         String inputText = ";";
         String expected = "setBPM";
         Action result = TextMapping.getActions(inputText).get(0);
