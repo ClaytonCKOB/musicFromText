@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9dacddfd-f9cc-4345-8c0e-13b208090a93" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/TextMappingTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Gui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/SongPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/SongPlayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/TextMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/TextMapping.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/util/TextMappingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/util/TextMappingTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,33 +79,7 @@
       <recent name="classes" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TextMappingTest (1)">
-    <configuration name="JavaSoundSongPlayer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="util.JavaSoundSongPlayer" />
-      <module name="musicFromText" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TextToMIDISyncApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="util.TextToMIDISyncApp" />
-      <module name="musicFromText" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.main">
     <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="application.main" />
       <module name="musicFromText" />
@@ -131,22 +108,61 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TextMappingTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TextMappingTest.testOctaveGetActions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="musicFromText" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TextMappingTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="util" />
+      <option name="MAIN_CLASS_NAME" value="util.TextMappingTest" />
+      <option name="METHOD_NAME" value="testOctaveGetActions" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TextMappingTest.testVogalsGetActions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="musicFromText" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="util" />
+      <option name="MAIN_CLASS_NAME" value="util.TextMappingTest" />
+      <option name="METHOD_NAME" value="testVogalsGetActions" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TextMappingTest.testVolumeGetActions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="musicFromText" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="util" />
+      <option name="MAIN_CLASS_NAME" value="util.TextMappingTest" />
+      <option name="METHOD_NAME" value="testVolumeGetActions" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TextMappingTest (1)" />
-        <item itemvalue="JUnit.TextMappingTest" />
         <item itemvalue="Application.main" />
-        <item itemvalue="Application.JavaSoundSongPlayer" />
-        <item itemvalue="Application.TextToMIDISyncApp" />
+        <item itemvalue="JUnit.TextMappingTest (1)" />
+        <item itemvalue="JUnit.TextMappingTest.testVolumeGetActions" />
+        <item itemvalue="JUnit.TextMappingTest.testVogalsGetActions" />
+        <item itemvalue="JUnit.TextMappingTest.testOctaveGetActions" />
       </list>
     </recent_temporary>
   </component>
@@ -167,7 +183,8 @@
       <workItem from="1693001989281" duration="3172000" />
       <workItem from="1693048964319" duration="15256000" />
       <workItem from="1693073323121" duration="9852000" />
-      <workItem from="1693087498104" duration="1094000" />
+      <workItem from="1693087498104" duration="2288000" />
+      <workItem from="1693143494446" duration="3135000" />
     </task>
     <servers />
   </component>
@@ -184,5 +201,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/util/TextMapping.java</url>
+          <line>119</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

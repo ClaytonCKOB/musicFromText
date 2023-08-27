@@ -7,6 +7,6 @@ public class main {
         Gui window = new Gui();
         window.createWindow();
 
-        SongPlayer.close();
+        SongPlayer.closeSequencer();
     }
 }

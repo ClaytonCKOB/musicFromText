@@ -35,7 +35,7 @@ public class Gui extends JFrame{
         startButton.setPreferredSize(new Dimension (130,40));
 
         JButton exportMIDIButton = new JButton("Export to MIDI");
-        openFileButton.setPreferredSize(new Dimension(130, 40));
+        exportMIDIButton.setPreferredSize(new Dimension(130, 40));
 
 
         userText = new JTextArea(20,30);
@@ -49,6 +49,14 @@ public class Gui extends JFrame{
         startButton.addActionListener(e->{
             try{
                 SongPlayer.play(userText.getText());
+            }catch (Exception error){
+                error.printStackTrace();
+            }
+        });
+
+        exportMIDIButton.addActionListener(e->{
+            try{
+                SongPlayer.writeMidiFile(userText.getText());
             }catch (Exception error){
                 error.printStackTrace();
             }

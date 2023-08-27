@@ -1,10 +1,14 @@
 package util;
 
 import javax.sound.midi.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import classes.Action;
 public class SongPlayer {
     private static final int MICROSECONDS_IN_A_MINUTE = 60000000;
+    public static final int MIDI_FILE_TYPE = 1;
+    public static final String DEFAULT_OUTPUT_FILE_NAME = "output.mid";
 
     private static Sequencer sequencer;
     private static MidiChannel[] channels;
@@ -24,7 +28,7 @@ public class SongPlayer {
 
     private static final int QUARTER_NOTE_LENGTH = 24;
 
-    public static void open() throws MidiUnavailableException {
+    public static void startSequencer() throws MidiUnavailableException {
         if (sequencer == null || !sequencer.isOpen()) {
             sequencer = MidiSystem.getSequencer();
             sequencer.open();
@@ -35,7 +39,7 @@ public class SongPlayer {
         resetVolume();
     }
 
-    public static void close() {
+    public static void closeSequencer() {
         if (sequencer != null && sequencer.isOpen()) {
             sequencer.close();
         }
@@ -43,7 +47,7 @@ public class SongPlayer {
         octave = DEFAULT_OCTAVE;
         bpm = DEFAULT_BPM;
         instrument = DEFAULT_INSTRUMENT;
-
+        tick = 0;
     }
 
     private static void setInstrument(int value) {
@@ -69,6 +73,9 @@ public class SongPlayer {
 
         return data;
     }
+    private static void increaseBPM(Track track){
+        setBpm(track,bpm + 80);
+    }
 
     private static void setBpm(Track track, int bpm) {
 
@@ -84,80 +91,66 @@ public class SongPlayer {
         track.add(new MidiEvent(metaMessage, tick));
     }
 
-    private static void rest() throws InterruptedException {
+    private static void rest() {
         tick += QUARTER_NOTE_LENGTH;
     }
 
-    public static void play(String text) throws MidiUnavailableException {
-        play(TextMapping.getActions(text));
 
+    public static void play(String text) throws MidiUnavailableException,InvalidMidiDataException, InterruptedException  {
+        List<Action> actions = TextMapping.getActions(text);
+
+        Sequence sequence = createMidiSequence(actions);
+
+        playSequence(sequence);
     }
 
-    public static void play(List<Action> actions) throws MidiUnavailableException {
+    private static void playSequence(Sequence sequence) throws MidiUnavailableException, InvalidMidiDataException, InterruptedException {
+        startSequencer();
+        sequencer.setSequence(sequence);
+        sequencer.start();
 
-        open();
-
-        Sequence sequence;
-        try {
-            sequence = new Sequence(Sequence.PPQ, QUARTER_NOTE_LENGTH);
-        } catch (InvalidMidiDataException e) {
-            e.printStackTrace();
-            return;
+        while (sequencer.isRunning()) {
+            Thread.sleep(100);
         }
+
+        sequencer.stop();
+        Thread.sleep(200);
+
+        closeSequencer();
+    }
+
+    private static Sequence createMidiSequence(List<Action> actions) throws InvalidMidiDataException {
+        Sequence sequence = new Sequence(Sequence.PPQ, QUARTER_NOTE_LENGTH);
         Track track = sequence.createTrack();
 
         for (Action action : actions) {
-            executeAction(track, action);
+            addActionToTrack(track, action);
         }
-
-        try {
-            sequencer.setSequence(sequence);
-            sequencer.start();
-
-            while (sequencer.isRunning()) {
-                Thread.sleep(100);
-            }
-
-            sequencer.stop();
-            Thread.sleep(200);
-        } catch (InvalidMidiDataException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-        close();
+        return sequence;
     }
 
     private static void increaseOctave(){
         if(octave < 10)
             octave += 1;
     }
-
-    private static void increaseBPM(){
-        bpm += 80;
+    private static void decreaseOctave(){
+        if(octave > 1)
+            octave -= 1;
     }
-    private static void executeAction(Track track, Action action) {
+
+
+    private static void addActionToTrack(Track track, Action action)  {
         switch (action.getName()) {
             case "playNote" -> playNote(track, action.getValue());
-            case "instrument" -> setInstrument(action.getValue());
-            case "volume" -> {
-                if (action.getValue() == 1) {
-                    doubleVolume();
-                } else {
-                    resetVolume();
-                }
-            }
-            case "increaseBPM" -> increaseBPM();
+            case "changeInstrument" -> setInstrument(action.getValue());
+            case "doubleVolume" ->  doubleVolume();
+            case "resetVolume" -> resetVolume();
+            case "increaseBPM" -> increaseBPM(track);
             case "setBPM" -> setBpm(track, action.getValue());
-            case "octave" -> increaseOctave();
-            case "rest" -> {
-                try {
-                    rest();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            case "telephone" -> playTelephoneSound(track);
+            case "increaseOctave" -> increaseOctave();
+            case "decreaseOctave" -> decreaseOctave();
+            case "rest" -> rest();
+            case "playTelephone" -> playTelephoneSound(track);
             default -> {
             }
         }
@@ -184,5 +177,14 @@ public class SongPlayer {
             System.out.println(note);
         }
         return new MidiEvent(message, tick);
+    }
+
+    public static void writeMidiFile(String text) throws InvalidMidiDataException, IOException {
+        List<Action> actions = TextMapping.getActions(text);
+
+        Sequence sequence = createMidiSequence(actions);
+
+        File outputFile = new File(DEFAULT_OUTPUT_FILE_NAME);
+        MidiSystem.write(sequence, MIDI_FILE_TYPE, outputFile);
     }
 }

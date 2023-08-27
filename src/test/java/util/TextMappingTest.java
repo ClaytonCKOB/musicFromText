@@ -60,11 +60,9 @@ class TextMappingTest {
         String inputText = "+-";
         List<Action> result = TextMapping.getActions(inputText);
 
-        assertEquals("volume", result.get(0).getName());
-        assertEquals(1, result.get(0).getValue());
+        assertEquals("doubleVolume", result.get(0).getName());
 
-        assertEquals("volume", result.get(1).getName());
-        assertEquals(0,  result.get(1).getValue());
+        assertEquals("resetVolume", result.get(1).getName());
     }
 
     @Test
@@ -78,27 +76,23 @@ class TextMappingTest {
         assertEquals("playNote", result.get(1).getName());
         assertEquals(9,  result.get(1).getValue());
 
-        assertEquals("volume", result.get(2).getName());
-        assertEquals(1,  result.get(2).getValue());
+        assertEquals("doubleVolume", result.get(2).getName());
 
-        assertEquals("telephone", result.get(3).getName());
+        assertEquals("playTelephone", result.get(3).getName());
     }
 
     @Test
     void testOctaveGetActions() {
         String inputText = "R+R-";
 
-        String firstNameExpected = "octave";
-        String secondNameExpected = "octave";
-        int firstValueExpected = 1;
-        int secondValueExpected = -1;
+        String firstNameExpected = "increaseOctave";
+        String secondNameExpected = "decreaseOctave";
+
         List<Action> result = TextMapping.getActions(inputText);
 
         assertEquals(firstNameExpected, result.get(0).getName());
-        assertEquals(firstValueExpected, result.get(0).getValue());
-
         assertEquals(secondNameExpected, result.get(1).getName());
-        assertEquals(secondValueExpected, result.get(1).getValue());
+
     }
 
     @Test
@@ -113,7 +107,7 @@ class TextMappingTest {
     @Test
     void testInstrumentGetActions() {
         String inputText = "\n";
-        String expected = "instrument";
+        String expected = "changeInstrument";
         Action result = TextMapping.getActions(inputText).get(0);
 
         assertEquals(expected, result.getName());

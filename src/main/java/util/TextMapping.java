@@ -27,33 +27,30 @@ public class TextMapping {
         put('F', NOTE_F);
         put('G', NOTE_G);
     }};
+    public static final int MAX_RANDOM_BPM = 200;
+    public static final int MAX_CHANNELS = 15;
 
-    private static Integer getNote(char character)
+    private static int getNote(char character)
     {
         return notes.get(Character.toUpperCase(character));
     }
 
-    private static Integer getOctave(String text, Integer index)
-    {
-        char next_char = text.charAt(index + 1);
+    private static boolean shouldIncreaseOctave(char character){
+       return character == '+';
+    }
 
-        if(next_char == '+'){
-            return 1;
-        }else if(next_char == '-'){
-            return -1;
-        }
-
-        return null;
+    private static boolean shouldDecreaseOctave(char character){
+        return character == '-' ;
     }
 
     private static Integer getRandomInstrument()
     {
-        return random.nextInt(15) + 1;
+        return random.nextInt(MAX_CHANNELS) ;
     }
 
     private static Integer getRandomBpm()
     {
-        return random.nextInt(200 - 40 + 1) + 40;
+        return random.nextInt(MAX_RANDOM_BPM) ;
     }
 
     private static Integer getRandomNote()
@@ -67,7 +64,7 @@ public class TextMapping {
 
     private static boolean isOctave(String text, Integer indice)
     {
-        return text.charAt(indice) == 'R' && indice++ < text.length();
+        return text.charAt(indice) == 'R' && ++indice < text.length();
     }
 
     private static boolean isNote(char character)
@@ -119,7 +116,8 @@ public class TextMapping {
     }
 
     private static void repeatLastAction(List<Action> actionList){
-        actionList.add(actionList.get(actionList.size() - 1));
+        if (actionList.size() > 0)
+            actionList.add(actionList.get(actionList.size() - 1));
     }
 
     public static List<Action> getActions(String text) {
@@ -142,33 +140,34 @@ public class TextMapping {
                 if (isNote(previousCharacter)) {
                     actions.add(new Action("playNote", getNote(previousCharacter)));
 
-                } else {
-                    actions.add(new Action("telephone"));
+                } else if (actions.size() > 0) {
+                    actions.add(new Action("playTelephone"));
 
                 }
 
 
             } else if (isOctave(text, currentIndex)) {
-                Integer value = getOctave(text, currentIndex);
-                if(value == null)
-                    repeatLastAction(actions);
-                else {
-                    actions.add(new Action("octave", value));
+
+                if(shouldIncreaseOctave(text.charAt(currentIndex + 1))){
+                    actions.add(new Action("increaseOctave"));
                     currentIndex++;
+                }else if(shouldDecreaseOctave(text.charAt(currentIndex + 1))){
+                    actions.add(new Action("decreaseOctave"));
+                    currentIndex++;
+                }else {
+                    repeatLastAction(actions);
                 }
 
-
-
             } else if (isInstrument(currentChar)) {
-                actions.add(new Action("instrument", getRandomInstrument()));
+                actions.add(new Action("changeInstrument", getRandomInstrument()));
 
 
             } else if (isDoubleVolume(currentChar)) {
-                actions.add(new Action("volume", 1));
+                actions.add(new Action("doubleVolume"));
 
 
             } else if (isDefaultVolume(currentChar)) {
-                actions.add(new Action("volume", 0));
+                actions.add(new Action("resetVolume"));
 
 
             } else if (isRandomNote(currentChar)) {
@@ -180,14 +179,10 @@ public class TextMapping {
 
 
             } else if (isRest(currentChar)) {
-                actions.add(new Action("rest", 0));
+                actions.add(new Action("rest"));
 
             } else {
-                if (actions.size() > 0)
-                    repeatLastAction(actions);
-                else {
-                    throw new IllegalArgumentException("Caractere " + currentIndex + 1 + " é inválido!");
-                }
+                repeatLastAction(actions);
 
             }
 
@@ -196,13 +191,5 @@ public class TextMapping {
         }
 
         return actions;
-    }
-
-    public static void main(String[] args) {
-        List<Action> actions = getActions("BPM+BPM+FFFCDDC  AAGGF");
-
-        for (Action action : actions) {
-            System.out.println(action);
-        }
     }
 }
