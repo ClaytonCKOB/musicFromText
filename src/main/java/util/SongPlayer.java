@@ -9,6 +9,11 @@ public class SongPlayer {
     private static final int MICROSECONDS_IN_A_MINUTE = 60000000;
     public static final int MIDI_FILE_TYPE = 1;
     public static final String DEFAULT_OUTPUT_FILE_NAME = "output.mid";
+    public static final int DEFAULT_BPM_INCREASE = 80;
+    public static final int MAX_OCTAVE = 10;
+    public static final int MIN_OCTAVE = 1;
+    public static final int TELEPHONE_NOTE_VALUE = 125;
+    public static final int NOTES_IN_A_OCTAVE = 12;
 
     private static Sequencer sequencer;
     private static MidiChannel[] channels;
@@ -74,7 +79,7 @@ public class SongPlayer {
         return data;
     }
     private static void increaseBPM(Track track){
-        setBpm(track,bpm + 80);
+        setBpm(track,bpm + DEFAULT_BPM_INCREASE);
     }
 
     private static void setBpm(Track track, int bpm) {
@@ -130,11 +135,11 @@ public class SongPlayer {
     }
 
     private static void increaseOctave(){
-        if(octave < 10)
+        if(octave < MAX_OCTAVE)
             octave += 1;
     }
     private static void decreaseOctave(){
-        if(octave > 1)
+        if(octave > MIN_OCTAVE)
             octave -= 1;
     }
 
@@ -157,15 +162,15 @@ public class SongPlayer {
     }
 
     private static void playNote(Track track, int note) {
-        track.add(createNoteEvent(ShortMessage.NOTE_ON, note + octave * 12, currentVolume, tick));
+        track.add(createNoteEvent(ShortMessage.NOTE_ON, note + octave * NOTES_IN_A_OCTAVE, currentVolume, tick));
         tick += QUARTER_NOTE_LENGTH;
-        track.add(createNoteEvent(ShortMessage.NOTE_OFF, note + octave * 12, 0, tick));
+        track.add(createNoteEvent(ShortMessage.NOTE_OFF, note + octave * NOTES_IN_A_OCTAVE, 0, tick));
     }
 
     private static void playTelephoneSound(Track track) {
-        track.add(createNoteEvent(ShortMessage.NOTE_ON, 125, currentVolume, tick));
+        track.add(createNoteEvent(ShortMessage.NOTE_ON, TELEPHONE_NOTE_VALUE, currentVolume, tick));
         tick += QUARTER_NOTE_LENGTH;
-        track.add(createNoteEvent(ShortMessage.NOTE_OFF, 125, 0, tick));
+        track.add(createNoteEvent(ShortMessage.NOTE_OFF, TELEPHONE_NOTE_VALUE, 0, tick));
     }
 
     private static MidiEvent createNoteEvent(int command, int note, int velocity, int tick) {

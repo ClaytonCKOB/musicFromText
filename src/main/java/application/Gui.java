@@ -2,6 +2,7 @@ package application;
 import util.InputReader;
 import util.SongPlayer;
 import util.InputReader;
+import util.TxtFileReader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -95,11 +96,7 @@ public class Gui extends JFrame{
         // optionally set chooser options ...
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File f = chooser.getSelectedFile();
-            InputReader reader = new InputReader(f);
-            userText.setText(reader.getStr());
-           
-        } else {
-            // user changed their mind
+            userText.setText(TxtFileReader.fileToString(f));
         }
     }
 

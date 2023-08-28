@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dacddfd-f9cc-4345-8c0e-13b208090a93" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/util/TxtFileReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/application/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Gui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/InputReader.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/SongPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/SongPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/TextMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/TextMapping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/util/TextMappingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/util/TextMappingTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +183,8 @@
       <workItem from="1693048964319" duration="15256000" />
       <workItem from="1693073323121" duration="9852000" />
       <workItem from="1693087498104" duration="2288000" />
-      <workItem from="1693143494446" duration="3135000" />
+      <workItem from="1693143494446" duration="4137000" />
+      <workItem from="1693256333383" duration="366000" />
     </task>
     <servers />
   </component>
@@ -201,16 +201,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/util/TextMapping.java</url>
-          <line>119</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
