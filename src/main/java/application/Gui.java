@@ -1,7 +1,5 @@
 package application;
-import util.InputReader;
 import util.SongPlayer;
-import util.InputReader;
 import util.TxtFileReader;
 
 import java.awt.*;
@@ -31,13 +29,13 @@ public class Gui extends JFrame{
         this.setLayout(layout);
 
         JButton openFileButton = new JButton("Open file");
-        openFileButton.setPreferredSize(new Dimension(130, 40));
+        openFileButton.setPreferredSize(new Dimension(150, 40));
 
         JButton startButton = new JButton("Convert to music");
-        startButton.setPreferredSize(new Dimension (130,40));
+        startButton.setPreferredSize(new Dimension (150,40));
 
         JButton exportMIDIButton = new JButton("Export to MIDI");
-        exportMIDIButton.setPreferredSize(new Dimension(130, 40));
+        exportMIDIButton.setPreferredSize(new Dimension(150, 40));
 
 
         userText = new JTextArea(20,30);
@@ -91,7 +89,7 @@ public class Gui extends JFrame{
 
     }
 
-    public void selectFile() {
+    private void selectFile() {
     	JFileChooser chooser = new JFileChooser();
         // optionally set chooser options ...
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {

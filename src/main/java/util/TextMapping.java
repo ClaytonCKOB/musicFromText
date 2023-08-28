@@ -102,7 +102,7 @@ public class TextMapping {
         return character == ';';
     }
 
-    private static boolean isHigherBpm(String text, Integer indice)
+    private static boolean isIncreaseBPM(String text, Integer indice)
     {
         return (
                 indice + 3 < text.length() &&
@@ -129,7 +129,7 @@ public class TextMapping {
         while (currentIndex < text.length()) {
             char currentChar = Character.toUpperCase(text.charAt(currentIndex));
 
-            if (isHigherBpm(text, currentIndex)) {
+            if (isIncreaseBPM(text, currentIndex)) {
                 actions.add(new Action("increaseBPM", 80));
                 currentIndex = currentIndex + 3;
 

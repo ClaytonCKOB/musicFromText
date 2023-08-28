@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="main.java:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/main_java_jar</output-path>
+    <root id="archive" name="main.java.jar">
+      <element id="module-output" name="musicFromText" />
+      <element id="module-output" name="Testa_triangulos" />
+    </root>
+  </artifact>
+</component>
