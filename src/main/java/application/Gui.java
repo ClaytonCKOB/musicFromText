@@ -1,6 +1,7 @@
 package application;
 import util.InputReader;
 import util.SongPlayer;
+import util.InputReader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -94,10 +95,9 @@ public class Gui extends JFrame{
         // optionally set chooser options ...
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File f = chooser.getSelectedFile();
-            userText.setText(fileToString(f));
+            InputReader reader = new InputReader(f);
+            userText.setText(reader.getStr());
            
-
-            // read  and/or display the file somehow. ....
         } else {
             // user changed their mind
         }
@@ -113,27 +113,6 @@ public class Gui extends JFrame{
         return image;
     }
     
-    private String fileToString(File f)
-    {	
-    	String contentAsString;
-    	try {               	         
-            Scanner scanner = new Scanner(f);
-            StringBuilder fileContent = new StringBuilder();
-            
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                fileContent.append(line).append("\n");
-            }
-            
-            scanner.close();     
-            contentAsString = fileContent.toString();
-            
-            return contentAsString;
-        } catch (FileNotFoundException e) 
-    	{
-            e.printStackTrace();
-        }
-    	return null;
-    }
+    
 
 }
