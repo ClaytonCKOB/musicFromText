@@ -1,7 +1,6 @@
 package application;
-import util.InputReader;
+
 import util.SongPlayer;
-import util.InputReader;
 import util.TxtFileReader;
 
 import java.awt.*;
@@ -12,7 +11,6 @@ import javax.swing.*;
 import java.io.IOException;
 import java.io.*;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Gui extends JFrame{
     private BorderLayout layout;
