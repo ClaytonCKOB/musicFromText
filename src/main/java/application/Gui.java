@@ -1,4 +1,5 @@
 package application;
+
 import util.SongPlayer;
 import util.TxtFileReader;
 
@@ -10,7 +11,6 @@ import javax.swing.*;
 import java.io.IOException;
 import java.io.*;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Gui extends JFrame{
     private BorderLayout layout;
@@ -29,13 +29,13 @@ public class Gui extends JFrame{
         this.setLayout(layout);
 
         JButton openFileButton = new JButton("Open file");
-        openFileButton.setPreferredSize(new Dimension(150, 40));
+        openFileButton.setPreferredSize(new Dimension(130, 40));
 
         JButton startButton = new JButton("Convert to music");
-        startButton.setPreferredSize(new Dimension (150,40));
+        startButton.setPreferredSize(new Dimension (130,40));
 
         JButton exportMIDIButton = new JButton("Export to MIDI");
-        exportMIDIButton.setPreferredSize(new Dimension(150, 40));
+        exportMIDIButton.setPreferredSize(new Dimension(130, 40));
 
 
         userText = new JTextArea(20,30);
@@ -89,7 +89,7 @@ public class Gui extends JFrame{
 
     }
 
-    private void selectFile() {
+    public void selectFile() {
     	JFileChooser chooser = new JFileChooser();
         // optionally set chooser options ...
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
