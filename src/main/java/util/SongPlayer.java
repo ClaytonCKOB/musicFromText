@@ -16,20 +16,16 @@ public class SongPlayer {
     public static final int NOTES_IN_A_OCTAVE = 12;
 
     private static Sequencer sequencer;
-    private static MidiChannel[] channels;
     private static final int DEFAULT_OCTAVE = 4;
-    private static final int DEFAULT_BPM = 4;
-    private static final int DEFAULT_INSTRUMENT = 0;
+    private static final int DEFAULT_BPM = 120;
     private static final int DEFAULT_VOLUME = 80;
-
-    private static int instrument = DEFAULT_INSTRUMENT;
 
     private static int currentVolume = DEFAULT_VOLUME;
     private static int octave = DEFAULT_OCTAVE;
     private static int bpm = DEFAULT_BPM;
     private static final byte SET_TEMPO_MESSAGE_CODE = 0x51;
 
-    private static int tick;
+    private static int tick = 0;
 
     private static final int QUARTER_NOTE_LENGTH = 24;
 
@@ -37,9 +33,6 @@ public class SongPlayer {
         if (sequencer == null || !sequencer.isOpen()) {
             sequencer = MidiSystem.getSequencer();
             sequencer.open();
-            if (sequencer instanceof Synthesizer synthesizer) {
-                channels = synthesizer.getChannels();
-            }
         }
         resetVolume();
     }
@@ -51,12 +44,18 @@ public class SongPlayer {
         currentVolume = DEFAULT_VOLUME;
         octave = DEFAULT_OCTAVE;
         bpm = DEFAULT_BPM;
-        instrument = DEFAULT_INSTRUMENT;
         tick = 0;
+        resetVolume();
     }
 
-    private static void setInstrument(int value) {
-        instrument = value;
+    private static MidiEvent createProgramChangeEvent(int instrument) throws InvalidMidiDataException {
+        ShortMessage message = new ShortMessage();
+        message.setMessage(ShortMessage.PROGRAM_CHANGE, 0, instrument, 0);
+        return new MidiEvent(message, tick);
+    }
+
+    private static void setInstrument(Track track, int value) throws InvalidMidiDataException {
+        track.add(createProgramChangeEvent(value));
     }
 
     private static void resetVolume() {
@@ -65,9 +64,11 @@ public class SongPlayer {
 
     private static void doubleVolume() {
         currentVolume *= 2;
+        if(currentVolume > 127)
+            currentVolume = 127;
     }
 
-    private static byte[] getSetTempoMIDIMessage(int bpm){
+    private static byte[] getTempoMIDIMessage(int bpm){
         int tempoValue = MICROSECONDS_IN_A_MINUTE / bpm;
 
         byte[] data = new byte[3];
@@ -79,13 +80,14 @@ public class SongPlayer {
         return data;
     }
     private static void increaseBPM(Track track){
+
         setBpm(track,bpm + DEFAULT_BPM_INCREASE);
     }
 
-    private static void setBpm(Track track, int bpm) {
-
+    private static void setBpm(Track track, int newBPM) {
+        bpm = newBPM;
         MetaMessage metaMessage = new MetaMessage();
-        byte[] data = getSetTempoMIDIMessage(bpm);
+        byte[] data = getTempoMIDIMessage(newBPM);
 
         try {
             metaMessage.setMessage(SET_TEMPO_MESSAGE_CODE, data, data.length );
@@ -101,16 +103,22 @@ public class SongPlayer {
     }
 
 
-    public static void play(String text) throws MidiUnavailableException,InvalidMidiDataException, InterruptedException  {
-        List<Action> actions = TextMapping.getActions(text);
+    public static void play(String text) {
+        Thread thread = new Thread(() -> {
+            try {
+                List<Action> actions = TextMapping.getActions(text);
+                startSequencer();
+                Sequence sequence = createMidiSequence(actions);
+                playSequence(sequence);
+            } catch (MidiUnavailableException | InvalidMidiDataException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
-        Sequence sequence = createMidiSequence(actions);
-
-        playSequence(sequence);
+        thread.start();
     }
 
     private static void playSequence(Sequence sequence) throws MidiUnavailableException, InvalidMidiDataException, InterruptedException {
-        startSequencer();
         sequencer.setSequence(sequence);
         sequencer.start();
 
@@ -122,6 +130,7 @@ public class SongPlayer {
         Thread.sleep(200);
 
         closeSequencer();
+
     }
 
     private static Sequence createMidiSequence(List<Action> actions) throws InvalidMidiDataException {
@@ -144,10 +153,10 @@ public class SongPlayer {
     }
 
 
-    private static void addActionToTrack(Track track, Action action)  {
+    private static void addActionToTrack(Track track, Action action) throws InvalidMidiDataException {
         switch (action.getName()) {
             case "playNote" -> playNote(track, action.getValue());
-            case "changeInstrument" -> setInstrument(action.getValue());
+            case "changeInstrument" -> setInstrument(track, action.getValue());
             case "doubleVolume" ->  doubleVolume();
             case "resetVolume" -> resetVolume();
             case "increaseBPM" -> increaseBPM(track);
@@ -162,27 +171,28 @@ public class SongPlayer {
     }
 
     private static void playNote(Track track, int note) {
-        track.add(createNoteEvent(ShortMessage.NOTE_ON, note + octave * NOTES_IN_A_OCTAVE, currentVolume, tick));
+        track.add(createNoteEvent(ShortMessage.NOTE_ON, note + octave * NOTES_IN_A_OCTAVE, currentVolume));
         tick += QUARTER_NOTE_LENGTH;
-        track.add(createNoteEvent(ShortMessage.NOTE_OFF, note + octave * NOTES_IN_A_OCTAVE, 0, tick));
+        track.add(createNoteEvent(ShortMessage.NOTE_OFF, note + octave * NOTES_IN_A_OCTAVE, 0));
     }
 
     private static void playTelephoneSound(Track track) {
-        track.add(createNoteEvent(ShortMessage.NOTE_ON, TELEPHONE_NOTE_VALUE, currentVolume, tick));
+        track.add(createNoteEvent(ShortMessage.NOTE_ON, TELEPHONE_NOTE_VALUE, currentVolume));
         tick += QUARTER_NOTE_LENGTH;
-        track.add(createNoteEvent(ShortMessage.NOTE_OFF, TELEPHONE_NOTE_VALUE, 0, tick));
+        track.add(createNoteEvent(ShortMessage.NOTE_OFF, TELEPHONE_NOTE_VALUE, 0));
     }
 
-    private static MidiEvent createNoteEvent(int command, int note, int velocity, int tick) {
+    private static MidiEvent createNoteEvent(int command, int note, int velocity) {
         ShortMessage message = new ShortMessage();
         try {
-            message.setMessage(command, instrument, note, velocity);
+            message.setMessage(command, 0, note, velocity);
         } catch (InvalidMidiDataException e) {
             e.printStackTrace();
             System.out.println(note);
         }
         return new MidiEvent(message, tick);
     }
+
 
     public static void writeMidiFile(String text) throws InvalidMidiDataException, IOException {
         List<Action> actions = TextMapping.getActions(text);

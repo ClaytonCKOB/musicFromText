@@ -28,7 +28,7 @@ public class TextMapping {
         put('G', NOTE_G);
     }};
     public static final int MAX_RANDOM_BPM = 200;
-    public static final int MAX_CHANNELS = 15;
+    public static final int MAX_INSTRUMENT = 127;
 
     private static int getNote(char character)
     {
@@ -45,7 +45,7 @@ public class TextMapping {
 
     private static Integer getRandomInstrument()
     {
-        return random.nextInt(MAX_CHANNELS) ;
+        return random.nextInt(MAX_INSTRUMENT) ;
     }
 
     private static Integer getRandomBpm()
