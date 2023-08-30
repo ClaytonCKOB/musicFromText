@@ -47,7 +47,7 @@ class TextMappingTest {
     }
 
     @Test
-    void testSilentGetActions() {
+    void testRestGetActions() {
         String inputText = " ";
         String expected = "rest";
         Action result = TextMapping.getActions(inputText).get(0);
@@ -122,5 +122,26 @@ class TextMappingTest {
 
         assertEquals(expected, result.getName());
 
+    }
+
+    @Test
+    void testNopGetActions() {
+        String inputText = "a=";
+        List<Action> result = TextMapping.getActions(inputText);
+
+        assertEquals("playNote", result.get(0).getName());
+        assertEquals(9, result.get(0).getValue());
+
+        assertEquals("playNote", result.get(1).getName());
+        assertEquals(9,  result.get(1).getValue());
+
+    }
+
+    @Test
+    void testNoActionToRepeatActions() {
+        String inputText = "==";
+        List<Action> result = TextMapping.getActions(inputText);
+
+        assertEquals(0, result.size());
     }
 }

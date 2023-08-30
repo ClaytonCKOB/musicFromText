@@ -11,9 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="9dacddfd-f9cc-4345-8c0e-13b208090a93" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/application/Gui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Gui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/SongPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/SongPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/TextMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/TextMapping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/util/TextMappingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/util/TextMappingTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +81,7 @@
       <recent name="classes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.main">
+  <component name="RunManager" selected="JUnit.TextMappingTest.testNoActionToRepeatActions">
     <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="application.main" />
       <module name="musicFromText" />
@@ -112,7 +110,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TextMappingTest.testOctaveGetActions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TextMappingTest.testNoActionToRepeatActions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="musicFromText" />
       <extension name="coverage">
         <pattern>
@@ -122,13 +120,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="util" />
       <option name="MAIN_CLASS_NAME" value="util.TextMappingTest" />
-      <option name="METHOD_NAME" value="testOctaveGetActions" />
+      <option name="METHOD_NAME" value="testNoActionToRepeatActions" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TextMappingTest.testVogalsGetActions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TextMappingTest.testRandomNopGetActions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="musicFromText" />
       <extension name="coverage">
         <pattern>
@@ -138,13 +136,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="util" />
       <option name="MAIN_CLASS_NAME" value="util.TextMappingTest" />
-      <option name="METHOD_NAME" value="testVogalsGetActions" />
+      <option name="METHOD_NAME" value="testRandomNopGetActions" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TextMappingTest.testVolumeGetActions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TextMappingTest.testRandomNopaGetActions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="musicFromText" />
       <extension name="coverage">
         <pattern>
@@ -154,7 +152,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="util" />
       <option name="MAIN_CLASS_NAME" value="util.TextMappingTest" />
-      <option name="METHOD_NAME" value="testVolumeGetActions" />
+      <option name="METHOD_NAME" value="testRandomNopaGetActions" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -162,11 +160,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TextMappingTest.testNoActionToRepeatActions" />
+        <item itemvalue="JUnit.TextMappingTest.testRandomNopaGetActions" />
+        <item itemvalue="JUnit.TextMappingTest.testRandomNopGetActions" />
         <item itemvalue="Application.main" />
         <item itemvalue="JUnit.TextMappingTest (1)" />
-        <item itemvalue="JUnit.TextMappingTest.testVolumeGetActions" />
-        <item itemvalue="JUnit.TextMappingTest.testVogalsGetActions" />
-        <item itemvalue="JUnit.TextMappingTest.testOctaveGetActions" />
       </list>
     </recent_temporary>
   </component>
@@ -190,7 +188,8 @@
       <workItem from="1693087498104" duration="2288000" />
       <workItem from="1693143494446" duration="4137000" />
       <workItem from="1693256333383" duration="3223000" />
-      <workItem from="1693329280445" duration="5113000" />
+      <workItem from="1693329280445" duration="5138000" />
+      <workItem from="1693396830908" duration="1199000" />
     </task>
     <servers />
   </component>
